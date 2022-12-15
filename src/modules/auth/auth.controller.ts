@@ -1,21 +1,29 @@
+import { ResponseInterceptor } from './../../interceptors/response.interceptor';
+import { LoginDataDto } from './dto/loginData.dto';
 import { AuthService } from './auth.service';
-import { Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 
+@UseGuards()
 @Controller('auth')
+@UseInterceptors(new ResponseInterceptor())
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  async userLogin() {
+  async userLogin(@Req() req, @Res() res, @Body() loginData: LoginDataDto) {
     this.authService.validateUser();
 
-    const loginData = {
-      userId: 'userID',
-      role: 'manager',
-    };
     this.authService.createAccessToken(loginData);
   }
 
   @Post('register')
-  async userRegister() {}
+  async userRegister(@Req() req, @Res() res, @Body() registerData) {}
 }

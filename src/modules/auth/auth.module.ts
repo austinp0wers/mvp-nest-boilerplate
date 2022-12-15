@@ -1,3 +1,4 @@
+import { UserModule } from './../user/user.module';
 import { ApiConfigService } from './../../shared/services/api-config.service';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
@@ -6,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    UserModule,
     JwtModule.registerAsync({
       useFactory: (configService: ApiConfigService) => ({
         privateKey: configService.authConfig.privateKey,
