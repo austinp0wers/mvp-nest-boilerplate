@@ -72,9 +72,8 @@ export class ApiConfigService {
   }
   private get(key: string): string {
     const value = this.configService.get<string>(key);
-    console.log('value', value);
     if (isNil(value)) {
-      throw new Error(key + ' environment variable does not set'); // probably we should call process.exit() too to avoid locking the service
+      throw new Error(key + ' environment variable does not set');
     }
 
     return value;
