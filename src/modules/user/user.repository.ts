@@ -5,11 +5,10 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserRepository {
-  constructor(
-    @InjectRepository(UserEntity) private userEntity: Repository<UserEntity>,
-  ) {}
+  constructor() {} // @InjectRepository(UserEntity) private userEntity: Repository<UserEntity>,
 
-  findOne(userInfo): Promise<UserEntity | null> {
-    return this.userEntity.findOneBy(userInfo);
+  //: Promise<UserEntity | null>
+  public findOne(userInfo) {
+    // return this.userEntity.findOneBy(userInfo);
   }
 }

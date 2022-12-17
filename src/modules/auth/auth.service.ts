@@ -10,6 +10,12 @@ export class AuthService {
     private userService: UserService,
   ) {}
 
+  async validateUser() {
+    const isUserValid = this.userService.isUserValid();
+    if (!isUserValid) return false;
+    return true;
+  }
+
   async createAccessToken(loginData) {
     const accessToken = await this.jwtService.signAsync({
       userId: loginData.userId,
@@ -18,6 +24,4 @@ export class AuthService {
     });
     return accessToken;
   }
-
-  async validateUser() {}
 }

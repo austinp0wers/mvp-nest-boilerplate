@@ -19,9 +19,12 @@ export class AuthController {
 
   @Post('login')
   async userLogin(@Req() req, @Res() res, @Body() loginData: LoginDataDto) {
-    this.authService.validateUser();
+    let access_token;
+    if (this.authService.validateUser()) {
+      access_token = await this.authService.createAccessToken(loginData);
+    }
 
-    this.authService.createAccessToken(loginData);
+    return access_token;
   }
 
   @Post('register')
