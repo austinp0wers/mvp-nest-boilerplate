@@ -1,4 +1,10 @@
-import { Entity } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'users' })
-export class UserEntity {}
+export class UserEntity {
+  @Column({ nullable: false })
+  name: string;
+
+  @Column({ nullable: false })
+  email: string;
+}
