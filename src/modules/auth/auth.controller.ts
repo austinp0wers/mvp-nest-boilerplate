@@ -18,10 +18,11 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  async userLogin(@Req() req, @Res() res, @Body() loginData: LoginDataDto) {
+  async userLogin(@Req() req, @Res() res, @Body() loginDataDto: LoginDataDto) {
     let access_token;
-    if (this.authService.validateUser()) {
-      access_token = await this.authService.createAccessToken(loginData);
+
+    if (this.authService.validateUser(loginDataDto)) {
+      access_token = await this.authService.createAccessToken(loginDataDto);
     }
 
     return access_token;
