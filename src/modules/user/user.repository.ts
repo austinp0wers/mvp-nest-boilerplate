@@ -5,10 +5,13 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserRepository {
-  constructor() {} // @InjectRepository(UserEntity) private userEntity: Repository<UserEntity>,
+  constructor(
+    @InjectRepository(UserEntity) private userEntity: Repository<UserEntity>,
+  ) {}
 
   //: Promise<UserEntity | null>
-  public findOne(userInfo) {
+  public async findUserByLoginInfo(userInfo) {
+    return await this.userEntity.findOneBy(userInfo);
     // return this.userEntity.findOneBy(userInfo);
   }
 }

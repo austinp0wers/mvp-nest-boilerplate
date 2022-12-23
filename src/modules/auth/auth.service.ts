@@ -1,3 +1,4 @@
+import { LoginDataDto } from './dto/loginData.dto';
 import { UserService } from './../user/user.service';
 import { TokenTypes } from '../../common/token-type';
 import { Injectable } from '@nestjs/common';
@@ -10,8 +11,8 @@ export class AuthService {
     private userService: UserService,
   ) {}
 
-  async validateUser() {
-    const isUserValid = this.userService.isUserValid();
+  async validateUser(loginDataDto: LoginDataDto): Promise<boolean> {
+    const isUserValid = this.userService.isUserValid(loginDataDto);
     if (!isUserValid) return false;
     return true;
   }
