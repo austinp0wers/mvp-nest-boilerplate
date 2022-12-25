@@ -1,4 +1,4 @@
-import { LoginDataDto } from './../auth/dto/loginData.dto';
+import { UserEntity } from './user.entity';
 import { UserRepository } from './user.repository';
 import { Injectable } from '@nestjs/common';
 
@@ -6,9 +6,7 @@ import { Injectable } from '@nestjs/common';
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  public async isUserValid(loginDataDto: LoginDataDto): Promise<boolean> {
-    const user = this.userRepository.findUserByLoginInfo({ ...loginDataDto });
-    if (!user) return false;
-    return true;
+  public async findOneByEmail(email: any): Promise<UserEntity | null> {
+    return await this.userRepository.findUserByEmail(email);
   }
 }
