@@ -29,6 +29,9 @@ export class UserEntity {
   @Exclude({ toPlainOnly: true })
   password: string;
 
+  @Column({ nullable: true })
+  role: string;
+
   @Exclude({ toPlainOnly: true })
   public previousPassword: string;
 

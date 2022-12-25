@@ -1,3 +1,4 @@
+import { LoginResponseDto } from './dto/loginResponse.dto';
 import { ResponseInterceptor } from './../../interceptors/response.interceptor';
 import { LoginDataDto } from './dto/loginData.dto';
 import { AuthService } from './auth.service';
@@ -19,13 +20,14 @@ export class AuthController {
 
   @Post('login')
   async userLogin(@Req() req, @Res() res, @Body() loginDataDto: LoginDataDto) {
-    let access_token;
+    const user = await this.authService.validateUser(loginDataDto);
 
-    if (this.authService.validateUser(loginDataDto)) {
-      access_token = await this.authService.createAccessToken(loginDataDto);
-    }
+    const access_token = await this.authService.createAccessToken({
+      userId: user.id,
+      role: user.role,
+    });
 
-    return access_token;
+    return new LoginResponseDto({ success: true, code: 200 }, access_token);
   }
 
   @Post('register')

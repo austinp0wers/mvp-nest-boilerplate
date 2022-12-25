@@ -10,8 +10,7 @@ export class UserRepository {
   ) {}
 
   //: Promise<UserEntity | null>
-  public async findUserByLoginInfo(userInfo) {
+  public async findUserByEmail(userInfo): Promise<UserEntity | null> {
     return await this.userEntity.findOneBy(userInfo);
-    // return this.userEntity.findOneBy(userInfo);
   }
 }
