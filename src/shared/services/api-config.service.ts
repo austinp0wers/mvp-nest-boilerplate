@@ -55,8 +55,11 @@ export class ApiConfigService {
       __dirname + '/../../modules/**/*.view-entity{.ts,.js}',
     ];
 
+    const migrations = [__dirname + '/../../database/migrations/*{.ts,.js}'];
+
     return {
       entities,
+      migrations,
       keepConnectionAlive: !this.isTest,
       dropSchema: this.isTest,
       type: 'postgres',

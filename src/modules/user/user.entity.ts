@@ -1,3 +1,4 @@
+import { UserRoleEnum } from './enums/role.enum';
 import {
   AfterLoad,
   BeforeInsert,
@@ -10,7 +11,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import * as bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt';
 @Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
@@ -22,39 +23,27 @@ export class UserEntity {
   @Column({ nullable: false })
   email: string;
 
-  @Column({ nullable: false })
-  phoneNumber: string;
+  @Column({ unique: true, nullable: false })
+  phone: string;
 
   @Column({ nullable: false })
   @Exclude({ toPlainOnly: true })
   password: string;
 
   @Column({ nullable: true })
-  role: string;
-
-  @Exclude({ toPlainOnly: true })
-  public previousPassword: string;
-
-  @AfterLoad()
-  public loadPreviousPassword(): void {
-    this.previousPassword = this.password;
-  }
+  role: UserRoleEnum;
 
   @BeforeInsert()
-  @BeforeUpdate()
   async setPassword() {
-    if (this.previousPassword !== this.password && this.password) {
-      const salt = await bcrypt.genSalt();
-      this.password = await bcrypt.hash(this.password, salt);
-    }
+    this.password = await bcrypt.hash(this.password, 10);
   }
 
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 
   @DeleteDateColumn()
-  deletedAt: Date;
+  deleted_at: Date;
 }
