@@ -1,5 +1,10 @@
 <h1>NestJS Boilerplate to build and test Minimal Viable Product</h1>
 
+### Template Specs
+
+- PostgreSQL
+- TypeORM
+
 ## Getting Started
 
 ```
