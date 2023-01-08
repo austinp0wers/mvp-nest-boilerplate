@@ -14,7 +14,7 @@
 ## Checklist
 
 - [ ] change the author name in 'LICENSE'
-- [ ] change configurations in '.env'
+- [ ] change configurations in '.env' as provided '.example.env'
 - [ ] clean up the README.md file
 
 And, you are good to go ^.^
