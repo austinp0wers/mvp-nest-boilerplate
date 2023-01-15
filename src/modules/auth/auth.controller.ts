@@ -11,7 +11,6 @@ import {
   Post,
   Req,
   Res,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 

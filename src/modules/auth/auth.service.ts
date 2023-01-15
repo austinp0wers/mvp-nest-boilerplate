@@ -5,7 +5,7 @@ import { TokenPayloadDto } from './dtos/tokenPayload.dto';
 import { UserEntity } from './../user/user.entity';
 import { LoginDataDto } from './dtos/loginData.dto';
 import { UserService } from './../user/user.service';
-import { TokenTypes } from '../../common/token-type';
+import { TokenTypes } from '../../common/enums/token-type';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { validatePasswordHash } from 'src/common/utils';

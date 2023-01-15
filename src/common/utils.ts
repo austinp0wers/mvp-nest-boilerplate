@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 export async function validatePasswordHash(
   password: string | undefined,
@@ -7,5 +7,5 @@ export async function validatePasswordHash(
   if (!password || !hash) {
     return Promise.resolve(false);
   }
-  return await bcrypt.compare(password, hash);
+  return await bcrypt.compareSync(password, hash);
 }

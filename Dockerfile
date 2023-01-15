@@ -1,21 +1,32 @@
 # Base image
 FROM node:18
 
-# Create app directory
-WORKDIR /usr/src/app
+COPY package.json yarn.lock ./
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
-
-# Install app dependencies
 RUN yarn install
 
-# Bundle app source
-COPY . .
+COPY . ./
 
-# Creates a "dist" folder with the production build
-RUN yarn build
+RUN yarn build:prod
 
-EXPOSE 3003
+FROM node:lts AS node_modules
+COPY package.json yarn.lock ./
+
+RUN yarn install --prod
+
+FROM node:lts
+
+ARG PORT=3003
+
+RUN mkdir -p /usr/src/app
+
+WORKDIR /usr/src/app
+
+COPY --from=dist dist /usr/src/app/dist
+COPY --from=node_modules node_modules /usr/src/app/node_modules
+
+COPY . /usr/src/app
+
+EXPOSE $PORT
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]
