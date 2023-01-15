@@ -1,8 +1,6 @@
 import { UserRoleEnum } from './enums/role.enum';
 import {
-  AfterLoad,
   BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -11,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 @Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
@@ -35,7 +33,8 @@ export class UserEntity {
 
   @BeforeInsert()
   async setPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
+    const salt = bcrypt.genSaltSync(10);
+    this.password = await bcrypt.hash(this.password, salt);
   }
 
   @CreateDateColumn()

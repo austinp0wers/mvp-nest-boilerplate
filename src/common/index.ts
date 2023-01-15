@@ -1,1 +1,1 @@
-export * from './token-type';
+export * from './enums/token-type';
