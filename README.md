@@ -35,3 +35,5 @@ yarn build
 # Run server on production
 yarn start:prod
 ```
+
+Looking forward to your contribution and criticisms are welcome!
