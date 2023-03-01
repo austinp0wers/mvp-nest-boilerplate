@@ -1,13 +1,16 @@
+import { UserTokenEntity } from './token.entity';
 import { UserModule } from './../user/user.module';
 import { ApiConfigService } from './../../shared/services/api-config.service';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     UserModule,
+    TypeOrmModule.forFeature([UserTokenEntity]),
     JwtModule.registerAsync({
       useFactory: (configService: ApiConfigService) => ({
         privateKey: configService.authConfig.privateKey,

@@ -1,14 +1,16 @@
-import { TokenPayloadDto } from './tokenPayload.dto';
 export class LoginResponseDto {
-  token: TokenPayloadDto;
+  accessToken: string;
   success: boolean;
   code: number;
+  refreshToken: string;
   constructor(
     status: { success: boolean; code: number },
-    accessToken: TokenPayloadDto,
+    accessToken: string,
+    refreshToken: string,
   ) {
-    this.token = accessToken;
+    this.accessToken = accessToken;
     this.success = status.success;
     this.code = status.code;
+    this.refreshToken = refreshToken;
   }
 }

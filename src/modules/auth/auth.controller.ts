@@ -28,10 +28,25 @@ export class AuthController {
     const access_token = await this.authService.createAccessToken({
       role: user.role,
       userId: user.id,
+      type: 'accessToken',
+    });
+    const refresh_token = await this.authService.createAccessToken({
+      role: user.role,
+      userId: user.id,
+      type: 'refreshToken',
     });
 
+    await this.authService.storeRefreshToken(
+      user.id,
+      refresh_token.token,
+      new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    );
     return res.json(
-      new LoginResponseDto({ success: true, code: 200 }, access_token),
+      new LoginResponseDto(
+        { success: true, code: 200 },
+        access_token.token,
+        refresh_token.token,
+      ),
     );
   }
 
@@ -44,5 +59,10 @@ export class AuthController {
     await this.userService.createUser(registerData);
 
     return res.json(new RegisterResponseDto(200, 'OK', true));
+  }
+
+  @Post('refresh-token')
+  public async validRefreshToken() {
+    // const userId = await this.authService.
   }
 }
