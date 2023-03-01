@@ -70,6 +70,7 @@ export class ApiConfigService {
       password: this.getString('DB_PASSWORD'),
       database: this.getString('DB_DATABASE'),
       migrationsRun: true,
+      logging: true,
       namingStrategy: new SnakeNamingStrategy(),
     };
   }

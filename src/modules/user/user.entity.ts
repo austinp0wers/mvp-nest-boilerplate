@@ -12,8 +12,8 @@ import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcryptjs';
 @Entity({ name: 'users' })
 export class UserEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ unique: true, nullable: false })
   name: string;
